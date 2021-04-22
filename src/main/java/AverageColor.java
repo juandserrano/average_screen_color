@@ -7,15 +7,18 @@ public class AverageColor {
 
     public static Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
     public static BufferedImage screenCapture;
-    public static BufferedImage capture;
+    //public static BufferedImage capture;
     public static MQTT mqtt = new MQTT();
 
 
     public static void main(String[] args) throws Exception {
         boolean quit = false;
         Scanner input = new Scanner(System.in);
+        String hexColor;
         while(!quit) {
-            mqtt.message(run());
+            hexColor = run();
+            mqtt.message(hexColor);
+            //CopyHelper.copyPaste(hexColor);
 
             Thread.sleep(3000);
         }
@@ -24,7 +27,7 @@ public class AverageColor {
 
     public static BufferedImage givenMainScreen_whenTakeScreenshot_thenSaveToFile() throws Exception {
 
-        capture = new Robot().createScreenCapture(screenRect);
+        BufferedImage capture = new Robot().createScreenCapture(screenRect);
         return capture;
     }
 
@@ -56,6 +59,7 @@ public class AverageColor {
         int h = screenCapture.getHeight();
         int w = screenCapture.getWidth();
         Color average_color = averageColor(screenCapture, 0, 0, w, h);
+        screenCapture.flush();
         int r = average_color.getRed();
         int g = average_color.getGreen();
         int b = average_color.getBlue();

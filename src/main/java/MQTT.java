@@ -10,7 +10,7 @@ public class MQTT {
         String topic        = "sensors/macbook/monitorcolor";
         int qos             = 2;
         String broker       = "tcp://192.168.50.111:1883";
-        String clientId     = "MacBook";
+        String clientId     = "macbook";
         MemoryPersistence persistence = new MemoryPersistence();
 
         try {
