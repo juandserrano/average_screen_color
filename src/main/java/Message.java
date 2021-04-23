@@ -6,7 +6,7 @@ public class Message {
 
     public Message(String hexColor, String brightness) {
         this.hexColor = hexColor;
-        this.brightness = brightness;
+        this.brightness = Double.toString(Math.round(Double.parseDouble(brightness)));
 
     }
 

@@ -11,19 +11,25 @@ public class AverageColor {
     public static MQTT mqtt = new MQTT();
     public static String brightness;
     public static Color average_color;
+    public static String prevBrightness;
 
     public static void main(String[] args) throws Exception {
         boolean quit = false;
         Scanner input = new Scanner(System.in);
         String hexColor;
+
         while(!quit) {
 
             hexColor = run();
-            Message msg = new Message(hexColor, brightness);
-            mqtt.message(msg);
+            if (!brightness.equalsIgnoreCase(prevBrightness)){
+                Message msg = new Message(hexColor, brightness);
+                prevBrightness = brightness;
+                mqtt.message(msg);
+            }
+
             //CopyHelper.copyPaste(hexColor);
 
-            Thread.sleep(3000);
+            Thread.sleep(500);
         }
 
     }
