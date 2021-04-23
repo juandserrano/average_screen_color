@@ -5,10 +5,10 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MQTT {
-    public void message(String hex) {
+    public void message(Message msg) {
 
         String topic        = "sensors/macbook/monitorcolor";
-        int qos             = 2;
+        int qos             = 0;
         String broker       = "tcp://192.168.50.111:1883";
         String clientId     = "macbook";
         MemoryPersistence persistence = new MemoryPersistence();
@@ -20,8 +20,8 @@ public class MQTT {
             System.out.println("Connecting to broker: "+broker);
             sampleClient.connect(connOpts);
             System.out.println("Connected");
-            System.out.println("Publishing message: "+ hex);
-            MqttMessage message = new MqttMessage(hex.getBytes());
+            System.out.println("Publishing message: "+ msg.getBrightness());
+            MqttMessage message = new MqttMessage(msg.getBrightness().getBytes());
             message.setQos(qos);
             sampleClient.publish(topic, message);
             System.out.println("Message published");
